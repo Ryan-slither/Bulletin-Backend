@@ -1,0 +1,28 @@
+FROM openjdk:17-jdk-alpine AS prod
+
+ARG PORT
+
+RUN apk add --no-cache netcat-openbsd
+
+WORKDIR /app
+
+COPY . /app/
+
+COPY wait-for-eureka.sh /wait-for-eureka.sh
+RUN chmod +x /wait-for-eureka.sh
+
+EXPOSE ${PORT}
+
+CMD ["/wait-for-eureka.sh"]
+
+FROM prod AS dev
+
+CMD ["./gradlew", "bootRun"]
+
+FROM prod AS unittest
+
+CMD ["./gradlew", "test", "--tests", "MembershipApplicationUnitTests"]
+
+FROM prod AS integrationtest
+
+CMD ["./gradlew", "test", "--tests", "MembershipApplicationIntegrationTests"]

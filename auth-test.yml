@@ -1,0 +1,47 @@
+include:
+  - path: ./users/docker-compose.yml
+    env_file:
+      - ./users/.env
+
+services:
+  eureka:
+    build:
+      context: ./eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - pgnetwork
+    container_name: eureka
+
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka
+      - users
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka/
+    networks:
+      - pgnetwork
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-bulletin
+    ports:
+      - "8000:8000"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_PASS}
+    depends_on:
+      - db-users
+    networks:
+      - pgnetwork
+
+networks:
+  pgnetwork:
+    driver: bridge
+
+volumes:
+  postgres-data:

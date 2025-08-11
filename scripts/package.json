@@ -1,0 +1,23 @@
+{
+  "devDependencies": {
+    "@stomp/stompjs": "^7.1.1",
+    "@types/jest": "^30.0.0",
+    "@types/ws": "^8.18.1",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "ws": "^8.18.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.test.ts"
+    ]
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

@@ -1,0 +1,40 @@
+# Build artifacts
+/build/
+.gradle/
+
+# Gradle wrapper
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# IDE-specific files
+.idea/
+.classpath
+.project
+.settings/
+*.iml
+*.ipr
+*.iws
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+.#*
+
+# System files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Environment-specific files
+**/.env
+**/postgres-data/
+**/**.pem
